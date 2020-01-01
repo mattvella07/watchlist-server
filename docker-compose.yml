@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes: 
+      - ./db:/docker-entrypoint-initdb.d
+    env_file:
+      - watchlist.env
+    ports:
+      - 3432:5432
+  watchlist:
+    image: watchlist
+    depends_on:
+      - db
+    env_file:
+      - watchlist.env
+    ports:
+      - 8080:8080
